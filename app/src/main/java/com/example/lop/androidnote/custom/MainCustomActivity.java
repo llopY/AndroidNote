@@ -1,14 +1,14 @@
-package com.example.lop.androidnote;
+package com.example.lop.androidnote.custom;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.utilcode.util.JsonUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.example.lop.androidnote.R;
 import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
-import com.example.lop.androidnote.custom.MainCustomActivity;
+import com.example.lop.androidnote.custom.tools.CustomViewToolsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,39 +18,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainCustomActivity extends BaseActivity {
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    private List<String>list=new ArrayList<>();
     private BaseRVAdapter mAdapter;
-    private List<String> list;
-    @Override
-    public int getLayoutID() {
-        return R.layout.activity_main;
-    }
     @Override
     protected void initUI() {
-        ButterKnife.bind(this);
-        setTitle("首页");
-
-        list=new ArrayList<>();
-        list.add("网络相关");
-        list.add("属性动画");
-        list.add("自定义控件");
-        mAdapter=new BaseRVAdapter(R.layout.view_main_rv_item);
+        setTitle("CustomView");
+        showBack();
+        list.add("Paint、Canvas");
+        list.add("TypedValue");
+        recyclerView=findViewById(R.id.recyclerView);
+        mAdapter=new BaseRVAdapter(R.layout.view_main_custom_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position){
-                case 0://网络相关
-
+                case 0:
+                    launchActivity(CustomViewToolsActivity.class);
                     break;
-                case 1://属性动画
-
-                    break;
-                case 2://自定义控件
-                    launchActivity(MainCustomActivity.class);
+                case 1:
                     break;
             }
         });
+    }
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.activity_main_custom;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 }
