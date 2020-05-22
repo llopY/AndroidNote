@@ -6,6 +6,7 @@ import android.view.View;
 import com.blankj.utilcode.util.JsonUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.example.lop.androidnote.animation.MainAnimationActivity;
 import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
 import com.example.lop.androidnote.custom.MainCustomActivity;
@@ -34,7 +35,7 @@ public class MainActivity extends BaseActivity {
 
         list=new ArrayList<>();
         list.add("网络相关");
-        list.add("属性动画");
+        list.add("动画相关");
         list.add("自定义控件");
         mAdapter=new BaseRVAdapter(R.layout.view_main_rv_item);
         recyclerView.setAdapter(mAdapter);
@@ -44,13 +45,14 @@ public class MainActivity extends BaseActivity {
                 case 0://网络相关
 
                     break;
-                case 1://属性动画
-
+                case 1://动画
+                    launchActivity(MainAnimationActivity.class);
                     break;
                 case 2://自定义控件
                     launchActivity(MainCustomActivity.class);
                     break;
             }
         });
+
     }
 }

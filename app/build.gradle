@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.lop.androidnote"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -37,5 +37,12 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.28.4'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+
+    //临时测试
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
 }

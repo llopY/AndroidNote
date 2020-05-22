@@ -15,27 +15,28 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainCustomActivity extends BaseActivity {
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private List<String>list=new ArrayList<>();
+    private List<String> list = new ArrayList<>();
     private BaseRVAdapter mAdapter;
+
     @Override
     protected void initUI() {
         setTitle("CustomView");
         showBack();
         list.add("Paint、Canvas");
         list.add("TypedValue");
-        recyclerView=findViewById(R.id.recyclerView);
-        mAdapter=new BaseRVAdapter(R.layout.view_main_custom_rv_item);
+        recyclerView = findViewById(R.id.recyclerView);
+        mAdapter = new BaseRVAdapter(R.layout.view_main_custom_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            switch (position){
+            switch (position) {
                 case 0:
                     launchActivity(CustomViewToolsActivity.class);
                     break;
