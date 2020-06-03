@@ -1,19 +1,24 @@
 package com.example.lop.androidnote.animation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
-
 import android.os.Bundle;
-import android.view.LayoutInflater;
 
 import com.example.lop.androidnote.R;
 import com.example.lop.androidnote.base.BaseActivity;
+import com.example.lop.androidnote.base.BaseRVAdapter;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainAnimationActivity extends BaseActivity {
 
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    private BaseRVAdapter mAdapter;
+    private List<String>list=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +26,21 @@ public class MainAnimationActivity extends BaseActivity {
 
     @Override
     protected void initUI() {
+        ButterKnife.bind(this);
         setTitle("动画相关");
         showBack();
-        GifImageView gifImageView=findViewById(R.id.gif_image_view);
-        try {
-            GifDrawable gifDrawable = new GifDrawable(getResources(), R.drawable.ic_gif_finish_success);
-            gifImageView.setImageDrawable(gifDrawable);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        list.add("补间动画");
+        list.add("属性动画");
+        mAdapter=new BaseRVAdapter(R.layout.view_common_rv_item);
+        mAdapter.setNewInstance(list);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (position==0){
+                launchActivity(TweenAnimationActivity.class);
+            }else {
+                launchActivity(ObjectAnimationActivity.class);
+            }
+        });
     }
 
     @Override

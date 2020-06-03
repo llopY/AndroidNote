@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".animation.ObjectAnimationActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_head"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chart_color_06"
+            android:text="测试"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/dp_10"/>
+        <Button
+            android:id="@+id/btn_valueAnimator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_chart1_corners3"
+            android:layout_margin="@dimen/dp_10"
+            android:text="仿抖音搜索框变化"
+            android:textColor="@color/white"
+            android:onClick="onClick"
+            android:visibility="visible"/>
+
+    </FrameLayout>
+</LinearLayout>

@@ -41,8 +41,7 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.airbnb.android:lottie:3.4.0'
 
-
-    //临时测试
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

@@ -1,47 +1,58 @@
 package com.example.lop.androidnote;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
-import com.blankj.utilcode.util.JsonUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.lop.androidnote.animation.MainAnimationActivity;
 import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
 import com.example.lop.androidnote.custom.MainCustomActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private BaseRVAdapter mAdapter;
     private List<String> list;
+    private String uri = "http://hbimg.b0.upaiyun.com/357d23d074c2954d568d1a6f86a5be09d190a45116e95-0jh9Pg_fw658";
+
     @Override
     public int getLayoutID() {
         return R.layout.activity_main;
     }
+
     @Override
     protected void initUI() {
         ButterKnife.bind(this);
         setTitle("首页");
 
-        list=new ArrayList<>();
+        list = new ArrayList<>();
         list.add("网络相关");
         list.add("动画相关");
         list.add("自定义控件");
-        mAdapter=new BaseRVAdapter(R.layout.view_main_rv_item);
+        mAdapter = new BaseRVAdapter(R.layout.view_main_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            switch (position){
+            switch (position) {
                 case 0://网络相关
 
                     break;
@@ -54,5 +65,37 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    public void doGetData() {
+        OkHttpClient okHttpClent = new OkHttpClient();
+        Request request = new Request.Builder().url(uri).build();
+        Call call = okHttpClent.newCall(request);
+        call.enqueue(
+                new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        int code = response.code();
+                        if (code == 200) {
+                            byte[] data = response.body().bytes();
+                            runOnUiThread(() -> {
+
+                            });
+                        }
+                    }
+                }
+        );
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

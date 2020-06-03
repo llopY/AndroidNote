@@ -7,16 +7,10 @@
     tools:context=".animation.MainAnimationActivity"
     android:orientation="vertical">
     <include layout="@layout/common_head"/>
-    <com.airbnb.lottie.LottieAnimationView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:lottie_autoPlay="true"
-        app:lottie_imageAssetsFolder="images/"
-        app:lottie_fileName="live_pk.json"/>
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gif_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/gray"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/view_common_rv_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </LinearLayout>

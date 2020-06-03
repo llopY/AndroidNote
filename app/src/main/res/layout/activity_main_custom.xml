@@ -13,5 +13,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/view_main_custom_rv_item"/>
+        tools:listitem="@layout/view_common_rv_item"/>
 </LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--50%p表示在当前控件的左上角加上当前控件父布局宽高长度的百分之五十作为动画的起始点-->
+    <scale android:fromXScale="0" android:toXScale="1" android:fromYScale="0" android:toYScale="1"
+        android:pivotX="50%p"
+        android:pivotY="50%p"
+        android:duration="2000" />
+</set>

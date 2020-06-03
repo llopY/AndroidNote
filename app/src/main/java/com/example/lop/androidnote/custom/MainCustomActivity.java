@@ -1,10 +1,7 @@
 package com.example.lop.androidnote.custom;
 
 import android.os.Bundle;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.lop.androidnote.R;
 import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
@@ -13,9 +10,7 @@ import com.example.lop.androidnote.custom.tools.CustomViewToolsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -32,7 +27,7 @@ public class MainCustomActivity extends BaseActivity {
         list.add("Paint、Canvas");
         list.add("TypedValue");
         recyclerView = findViewById(R.id.recyclerView);
-        mAdapter = new BaseRVAdapter(R.layout.view_main_custom_rv_item);
+        mAdapter = new BaseRVAdapter(R.layout.view_common_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
