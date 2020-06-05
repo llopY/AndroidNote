@@ -2,11 +2,16 @@ package com.example.lop.androidnote.custom.tools;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -33,7 +38,8 @@ public class CanvasViewByPath extends View {
     private void init() {
         paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
         path = new Path();
     }
 
@@ -44,16 +50,18 @@ public class CanvasViewByPath extends View {
         /**
          * 线操作 lineTo：x、y表示当前位置的绝对位置  rLineTo:表示当前位置的相对位置
          * 当前位置：最后一次调用path的方法的终点位置，初始值为(0,0)
-         * 点操作 moveTo:改变后面操作的起始点位置,和线操作原理一样
+         * 点操作 moveTo:改变后面操作的起始点位置,和线操作原理一样  画线的时候最好用Paint.Style.STROKE
          */
 //        path.moveTo(50,100);
 //        path.setLastPoint(0,0);//改变前面操作中最后点的位置
 //        path.lineTo(100,300);
+//        canvas.drawPath(path, paint);
 
 //        path.moveTo(300,0);
 //        path.lineTo(300,300);
 //        path.rLineTo(300,0);
 //        path.close();
+//        canvas.drawPath(path, paint);
 
         /**
          * FillType.EVEN_ODD交叉填充 even(偶) odd(奇)
@@ -61,9 +69,17 @@ public class CanvasViewByPath extends View {
          * 如果是奇数则这个点被认为在图形内部是要被涂色的区域；如果是偶数则这个点被认为在图形外部是不被涂色的区域
          * FillType.WINDING全填充：也是从平面任意一点发出一条射线，查看交点，初始值为0顺时针交点加一逆时针交点减一，最终结果为0的话则认为这个点在图形外部是不被涂色的区域
          */
-        path.setFillType(Path.FillType.WINDING);
-        path.addCircle(150, 150, 100, Path.Direction.CW);
-        path.addCircle(270, 150, 100, Path.Direction.CCW);
+//        path.setFillType(Path.FillType.WINDING);
+//        path.addCircle(150, 150, 100, Path.Direction.CW);
+//        path.addCircle(270, 150, 100, Path.Direction.CCW);
+//        canvas.drawPath(path, paint);
+
+        path.addCircle(200,200,80,Path.Direction.CW);
         canvas.drawPath(path, paint);
+        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,14,getContext().getResources().getDisplayMetrics()));
+        canvas.drawTextOnPath("AndroidNote",path, (float) (Math.PI*80),//这里的偏移量表示从起点开始沿画图的路径偏移的距离(水平方向)
+                //这里的偏移量表示距离线偏移的距离(垂直方向)
+                -TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,10,getContext().getResources().getDisplayMetrics())
+                ,paint);
     }
 }
