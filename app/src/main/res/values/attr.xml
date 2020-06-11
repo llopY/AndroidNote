@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="customView">
+        <attr name="paint_color" format="color"/>
+        <attr name="tv_content" format="string"/>
+        <attr name="width" format="dimension"/>
+        <attr name="height" format="dimension"/>
+    </declare-styleable>
+    
+    <declare-styleable name="customView2">
+        <attr name="circle_base_color" format="color"/>
+        <attr name="circle_progress_color" format="color"/>
+        <attr name="centerX" format="dimension"/>
+        <attr name="centerY" format="dimension"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="stroke_width" format="dimension" />
+    </declare-styleable>
+</resources>

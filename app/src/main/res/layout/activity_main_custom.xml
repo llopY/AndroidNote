@@ -11,7 +11,42 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/view_common_rv_item"/>
+    <com.example.lop.androidnote.custom.customview.CustomView
+        android:id="@+id/custom_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/chart_color_06"
+        app:paint_color="@color/chart_color_03"
+        app:width="200dp"
+        app:height="40dp"
+        app:tv_content="jjjjjAAAAA测试"/>
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="200dp"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/bg_corners1"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:text="开始绘制"/>
+    <com.example.lop.androidnote.custom.customview.CustomView2
+        android:id="@+id/custom_view2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        app:circle_base_color="@color/chart_color_07"
+        app:circle_progress_color="@color/chart_color_03"
+        app:centerX="50dp"
+        app:centerY="50dp"
+        app:radius="30dp"
+        app:stroke_width="3dp" />
 </LinearLayout>

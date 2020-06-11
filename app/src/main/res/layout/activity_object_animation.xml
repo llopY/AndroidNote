@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/dp_10"
-            android:background="@drawable/bg_chart1_corners3"
+            android:background="@drawable/bg_rv_corners"
             android:onClick="onClick"
             android:text="仿抖音搜索框变化"
             android:textColor="@color/white"

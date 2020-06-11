@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".net.MainNetActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_head"/>
+    <Button
+        android:id="@+id/btn_about_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_corners1"
+        android:textColor="@color/white"
+        android:text="OkHttp"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_about_retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_corners1"
+        android:textColor="@color/white"
+        android:text="Retrofit"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_about_rxjava"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_corners1"
+        android:textColor="@color/white"
+        android:text="RxJava"
+        android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_about_rxandroid"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_corners1"
+        android:textColor="@color/white"
+        android:text="RxAndroid"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_http_url_connect_get"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_corners1"
+        android:textColor="@color/white"
+        android:text="HttpUrlConnection GET"
+        android:textAllCaps="false"/>
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_margin="@dimen/dp_10"/>
+</LinearLayout>
