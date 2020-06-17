@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".intentservice.HandlerThreadActivity"></activity>
+        <activity android:name=".lazyload.ActivityLazyLoad"></activity>
+        <activity android:name=".intentservice.HandlerThreadActivity" />
         <activity android:name=".file.MainFileActivity" />
         <activity android:name=".net.okhttp.MainOkhttpActivity" />
         <activity android:name=".net.MainNetActivity" />

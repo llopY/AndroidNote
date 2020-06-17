@@ -15,6 +15,7 @@ import com.example.lop.androidnote.base.BaseRVAdapter;
 import com.example.lop.androidnote.custom.MainCustomActivity;
 import com.example.lop.androidnote.file.MainFileActivity;
 import com.example.lop.androidnote.intentservice.HandlerThreadActivity;
+import com.example.lop.androidnote.lazyload.ActivityLazyLoad;
 import com.example.lop.androidnote.net.MainNetActivity;
 
 import java.io.BufferedReader;
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity {
         list.add("自定义控件");
         list.add("文件");
         list.add("IntentService原理");
+        list.add("Fragment懒加载，setMaxLifecycle");
         mAdapter = new BaseRVAdapter(R.layout.view_main_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
@@ -78,35 +80,13 @@ public class MainActivity extends BaseActivity {
                 case 4:
                     launchActivity(HandlerThreadActivity.class);
                     break;
+                case 5:
+                    launchActivity(ActivityLazyLoad.class);
+                    break;
             }
         });
 
     }
-
-    public void doGetData() {
-        OkHttpClient okHttpClent = new OkHttpClient();
-        Request request = new Request.Builder().url(uri).build();
-        Call call = okHttpClent.newCall(request);
-        call.enqueue(
-                new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        int code = response.code();
-                        if (code == 200) {
-                            byte[] data = response.body().bytes();
-                            runOnUiThread(() -> {
-
-                            });
-                        }
-                    }
-                }
-        );
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
