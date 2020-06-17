@@ -1,8 +1,9 @@
 package com.example.lop.androidnote.custom;
 
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.lop.androidnote.R;
 import com.example.lop.androidnote.base.BaseActivity;
@@ -14,6 +15,7 @@ import com.example.lop.androidnote.custom.tools.CustomViewToolsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +31,7 @@ public class MainCustomActivity extends BaseActivity {
     Button btnStart;
     private List<String> list = new ArrayList<>();
     private BaseRVAdapter mAdapter;
-
+    private TextView textView;
     @Override
     protected void initUI() {
         ButterKnife.bind(this);
@@ -61,4 +63,17 @@ public class MainCustomActivity extends BaseActivity {
         return R.layout.activity_main_custom;
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        textView=findViewById(R.id.view_post);
+        Log.e("----------------->","width=="+textView.getWidth());
+        Log.e("----------------->","height=="+textView.getHeight());
+        Log.e("----------------->",Thread.currentThread().getName()+" "+Thread.currentThread().getId());
+        textView.post(() -> {
+            Log.e("----------------->post","width=="+textView.getWidth());
+            Log.e("----------------->post","height=="+textView.getHeight());
+            Log.e("----------------->post",Thread.currentThread().getName()+" "+Thread.currentThread().getId());
+        });
+    }
 }

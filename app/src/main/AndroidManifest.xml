@@ -3,8 +3,9 @@
     package="com.example.lop.androidnote">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".file.MainFileActivity"></activity>
+        <activity android:name=".intentservice.HandlerThreadActivity"></activity>
+        <activity android:name=".file.MainFileActivity" />
         <activity android:name=".net.okhttp.MainOkhttpActivity" />
         <activity android:name=".net.MainNetActivity" />
         <activity android:name=".animation.ObjectAnimationActivity" />
@@ -32,6 +34,8 @@
         <meta-data
             android:name="source"
             android:value="1001" />
+
+        <service android:name=".intentservice.MyIntentService" />
     </application>
 
 </manifest>

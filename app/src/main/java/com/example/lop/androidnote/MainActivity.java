@@ -1,5 +1,6 @@
 package com.example.lop.androidnote;
 
+import android.content.ContextWrapper;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
 import com.example.lop.androidnote.custom.MainCustomActivity;
 import com.example.lop.androidnote.file.MainFileActivity;
+import com.example.lop.androidnote.intentservice.HandlerThreadActivity;
 import com.example.lop.androidnote.net.MainNetActivity;
 
 import java.io.BufferedReader;
@@ -50,12 +52,12 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("首页");
 
-
         list = new ArrayList<>();
         list.add("网络相关");
         list.add("动画相关");
         list.add("自定义控件");
         list.add("文件");
+        list.add("IntentService原理");
         mAdapter = new BaseRVAdapter(R.layout.view_main_rv_item);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setNewInstance(list);
@@ -72,6 +74,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case 3:
                     launchActivity(MainFileActivity.class);
+                    break;
+                case 4:
+                    launchActivity(HandlerThreadActivity.class);
                     break;
             }
         });
