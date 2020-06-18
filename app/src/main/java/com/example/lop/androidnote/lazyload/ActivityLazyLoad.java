@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.lop.androidnote.R;
 import com.example.lop.androidnote.base.BaseActivity;
@@ -34,6 +35,8 @@ public class ActivityLazyLoad extends BaseActivity {
     MagicIndicator magicIndicator;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+    @BindView(R.id.btn_life_cycle)
+    Button btnLifeCycle;
     private String[] titles = new String[]{"标题1", "标题2", "标题3"};
     private List<FragmentLazyLoad> fragments = new ArrayList<>();
     private MyPagerAdapter pagerAdapter;
@@ -41,7 +44,7 @@ public class ActivityLazyLoad extends BaseActivity {
     @Override
     protected void initUI() {
         ButterKnife.bind(this);
-        setTitle("setMaxLifecycle");
+        setTitle("Behavior 懒加载");
         showBack();
 
         //viewPager
@@ -86,6 +89,10 @@ public class ActivityLazyLoad extends BaseActivity {
         });
         magicIndicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+
+        btnLifeCycle.setOnClickListener(v -> {
+            launchActivity(ActivitySetMaxLifecycleExam.class);
+        });
 
     }
 

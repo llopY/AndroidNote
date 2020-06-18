@@ -8,6 +8,15 @@
     android:orientation="vertical">
 
     <include layout="@layout/common_head"/>
+    <Button
+        android:id="@+id/btn_life_cycle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_corners5"
+        android:textAllCaps="false"
+        android:text="setMaxLifecycle"/>
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
