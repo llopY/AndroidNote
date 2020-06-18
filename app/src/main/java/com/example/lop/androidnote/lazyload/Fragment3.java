@@ -29,9 +29,9 @@ public class Fragment3 extends Fragment {
     public static Fragment3 newInstance(String str) {
         Bundle bundle = new Bundle();
         bundle.putString("str", str);
-        Fragment3 fragment1 = new Fragment3();
-        fragment1.setArguments(bundle);
-        return fragment1;
+        Fragment3 fragment3 = new Fragment3();
+        fragment3.setArguments(bundle);
+        return fragment3;
     }
 
     @Nullable

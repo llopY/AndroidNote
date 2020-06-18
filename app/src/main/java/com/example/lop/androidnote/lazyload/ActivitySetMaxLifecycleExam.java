@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -70,8 +71,6 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
             fragment2 = (Fragment2) fragmentManager.getFragment(savedInstanceState, fragment2_TAG);
             fragment3 = (Fragment3) fragmentManager.getFragment(savedInstanceState, fragment3_TAG);
             restoreIndex = savedInstanceState.getInt("index");
-        } else {
-            Log.w("----___>", "onCreate savedInstanceState==null");
         }
         setFragments();
     }
@@ -85,7 +84,6 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
      */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.w("----___>", "onSaveInstanceState");
         if (fragment1 != null && fragment1.isAdded()) {
             fragmentManager.putFragment(outState, fragment1_TAG, fragment1);
         }
@@ -117,7 +115,6 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
 
     private void setFragments() {
         if (fragment1 == null) {
-            Log.w("----___>", "fragment1 == null");
             fragment1 = Fragment1.newInstance("fragment1");
         }
         if (fragment2 == null) {
@@ -125,7 +122,6 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
             fragment2 = Fragment2.newInstance("fragment2");
         }
         if (fragment3 == null) {
-            Log.w("----___>", "fragment3 == null");
             fragment3 = Fragment3.newInstance("fragment3");
         }
         fragmentList.add(fragment1);
@@ -151,13 +147,28 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
         fragment = fragmentList.get(index);
         if (fragment.isAdded()) {
             transaction.show(fragment);
+            /**
+             * fragment已经add了，使用CREATED会让fragment2再走onPause,onStop,onDestroyView
+             * STOPED：fragment2会走到onPause
+             * RESUMED:不发生变化
+             */
+//            if (fragment instanceof Fragment2){
+//                transaction.setMaxLifecycle(fragment, Lifecycle.State.CREATED);
+//            }
+
         } else {
+            /**
+             * fragment第一次add，再调用setMaxLifecycle
+             * CREATED:fragment2只走到onPause
+             * STOPED:只走到stoped
+             * RESUME:同理
+             */
             transaction.add(R.id.content, fragment);
+//            if (fragment instanceof Fragment2) {
+//                transaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+//            }
         }
-//        transaction.commitAllowingStateLoss();
         transaction.commit();
-//        transaction.commitNow();
-//        transaction.commitNowAllowingStateLoss();
     }
 
     /**
