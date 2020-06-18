@@ -61,15 +61,17 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (fragmentManager == null) {
-            Log.w("----___>", "fragmentManager!=null");
             fragmentManager = getSupportFragmentManager();
         }
 
         if (savedInstanceState != null) {
+            Log.w("----___>", "onCreate savedInstanceState!=null");
             fragment1 = (Fragment1) fragmentManager.getFragment(savedInstanceState, fragment1_TAG);
             fragment2 = (Fragment2) fragmentManager.getFragment(savedInstanceState, fragment2_TAG);
             fragment3 = (Fragment3) fragmentManager.getFragment(savedInstanceState, fragment3_TAG);
             restoreIndex = savedInstanceState.getInt("index");
+        } else {
+            Log.w("----___>", "onCreate savedInstanceState==null");
         }
         setFragments();
     }
@@ -152,7 +154,10 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
         } else {
             transaction.add(R.id.content, fragment);
         }
-        transaction.commitAllowingStateLoss();
+//        transaction.commitAllowingStateLoss();
+        transaction.commit();
+//        transaction.commitNow();
+//        transaction.commitNowAllowingStateLoss();
     }
 
     /**
@@ -181,5 +186,25 @@ public class ActivitySetMaxLifecycleExam extends BaseActivity {
                 selectedFragment(2);
                 break;
         }
+    }
+
+    /**
+     * Honeycomb之前的版本，activity被认为在pause之前都不会被杀掉，这意味着onSaveInstanceState()会在onPause()之前被调用
+     * 从HoneyComb开始，Activity被认为只会在stopped才会被杀掉，意味着onSaveInstanceState()现在会在onStop()之前被调用而不是在onPause()之前
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        /**
+         * 加上这句话在内存不足activity被回收的时候(也可以去开发者选项打开不保留活动)
+         * 还是会出现fragment重叠的问题，因为在onSaveInstanceState调用之后fragment又进行了一次事务提交且用的是commitAllowingStateLoss
+         * 在onSaveInstanceState后调用commitAllowingStateLoss会丢失提交的页面状态信息，通过日志也可以看到fragment2为空
+         * 而用commit的话会崩 出现Can not perform this action after onSaveInstanceState错误
+         * 这也是这两种提交事务的区别：commit会对状态进行检测如果已经保存了就抛出异常；而commitAllowingStateLoss方法不进行状态检测，因此不会抛出异常
+         *
+         * 所以除非状态丢失不可避免可以不用commitAllowingStateLoss
+         * 应该尽早提交事务，且不应该在异步操作中执行事务提交
+         */
+//        selectedFragment(1);
     }
 }
