@@ -96,6 +96,8 @@ public class MainCustomActivity extends BaseActivity {
          * 而viewImpl的mAttachInfo则是直接通过new View.AttachInfo(...,mHandler)得到的，这里传了很多参数，我们只需要关注mHandler，这里的mHandler在viewImpl是
          * 直接new出来的且调用的是无参构造方法，则mHandler是跟主线程绑定的，所以在view.post里面我们可以跟新UI
          *
+         * 根据源码可以知道performTraversals()是在performMeasure()、performLayout()、performDraw()之前调用的假设按照顺序执行我们得到的宽高还是0
+         * 解释
          * Android是消息驱动，所以它执行performTraversals()其实是由另一个消息去驱动执行了，而这个消息是TraversalRunnable，具体可以看ViewRootImpl的源码，里面有TraversalRunnable的定义。
          * 因此，这个时候Handler正在执行着TraversalRunnable这个Runnable，而我们post的Runnable要等待TraversalRunnable执行完才会去执行，
          * 而TraversalRunnable这里面又会进行measure,layout和draw流程，所以等到执行我们的Runnable时，此时的View就已经被measure过了，所以获取到的宽高就是measure过后的宽高。
