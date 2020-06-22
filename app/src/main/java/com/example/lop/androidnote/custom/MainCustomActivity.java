@@ -2,7 +2,9 @@ package com.example.lop.androidnote.custom;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.lop.androidnote.R;
@@ -75,5 +77,26 @@ public class MainCustomActivity extends BaseActivity {
             Log.e("----------------->post","height=="+textView.getHeight());
             Log.e("----------------->post",Thread.currentThread().getName()+" "+Thread.currentThread().getId());
         });
+        Log.e("----------------->","after post");
+        /**
+         * 通过以上日志(after post之前)可以知道在onCreate执行的时候onAttachedToWindow还没有执行，即view.post里面用到的mAttachInfo为空，则会走getRunQueue().post(action)方法
+         *
+         * getRunQueue().post(action) 会通过HandlerActionQueue类中的HandlerAction数组把当前的runnable缓存起来（具体去看该类的源码）
+         * 最后通过该类的executeActions方法就可以执行这些runnable，而executeActions是在view的dispatchAttachedToWindow方法中调用的，onAttachedToWindow也是在这个方法中调用
+         *
+         * 到处又知道了，要是view.post里面用到的mAttachInfo不为空则直接把当前的runnable放到handler对应的消息队列中，为空就把当前的runnable缓存起来（保存在HandlerActionQueue类的一个数组中）
+         * 最后当在执行dispatchAttachedToWindow的时候会调用mRunQueue.executeActions(info.mHandler)方法把所有缓存的runnable放入对应的消息队列中
+         *
+         * 最终回到了dispatchAttachedToWindow到底在哪里调用的？
+         * 在viewGroup中有调用该方法，它会遍历所有子view并把自己的mAttachInfo传给子类，而viewGroup的mAttachInfo又是哪来的？
+         * ViewRootImpl.performTraversals()是通知activity中的view开始测量、布局、绘制等
+         * 其中有 View host=mView; host.dispatchAttachedToWindow(mAttachInfo,0)，其中mView是activity的decorView，decorView继承FrameLayout
+         * 也是ViewGroup，这样就知道了ViewGroup的mAttachInfo的由来。
+         *
+         * 而viewImpl的mAttachInfo则是直接通过new View.AttachInfo(...,mHandler)得到的，这里传了很多参数，我们只需要关注mHandler，这里的mHandler在viewImpl是
+         * 直接new出来的且调用的是无参构造方法，则mHandler是跟主线程绑定的，所以在view.post里面我们可以跟新UI
+         *
+         * https://www.cnblogs.com/dasusu/p/8047172.html
+         */
     }
 }
