@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity {
                 case 5:
                     launchActivity(ActivityLazyLoad.class);
                     break;
-
             }
         });
 
