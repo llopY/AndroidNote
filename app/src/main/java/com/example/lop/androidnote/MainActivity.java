@@ -3,18 +3,32 @@ package com.example.lop.androidnote;
 import android.content.ContextWrapper;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.lop.androidnote.animation.MainAnimationActivity;
 import com.example.lop.androidnote.base.BaseActivity;
 import com.example.lop.androidnote.base.BaseRVAdapter;
 import com.example.lop.androidnote.custom.MainCustomActivity;
 import com.example.lop.androidnote.file.MainFileActivity;
 import com.example.lop.androidnote.intentservice.HandlerThreadActivity;
+import com.example.lop.androidnote.intentservice.MyIntentService;
 import com.example.lop.androidnote.lazyload.ActivityLazyLoad;
 import com.example.lop.androidnote.net.MainNetActivity;
 
@@ -25,6 +39,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -43,6 +58,11 @@ public class MainActivity extends BaseActivity {
     private BaseRVAdapter mAdapter;
     private List<String> list;
     private String uri = "http://hbimg.b0.upaiyun.com/357d23d074c2954d568d1a6f86a5be09d190a45116e95-0jh9Pg_fw658";
+    private TextView textView;
+    private String content1="测试测试测试测试";
+    private String content2="@halalop";
+    private String content3="123456789";
+    private EditText editText;
     @Override
     public int getLayoutID() {
         return R.layout.activity_main;
@@ -101,5 +121,20 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+
+        editText=findViewById(R.id.edit_text);
+
+        String content=content1+content2+content3;
+        textView=findViewById(R.id.text);
+        SpannableStringBuilder spannable=new SpannableStringBuilder(content);
+        spannable.setSpan(new MyClickSpan(),content1.length(),content1.length()+content2.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        spannable.setSpan(new MyClickSpan(),0,content1.length()-4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        textView.setMovementMethod(MyLinkedMovementMethod.getInstance());
+        textView.setHighlightColor(getResources().getColor(android.R.color.transparent));
+        textView.setText(spannable);
     }
+
 }

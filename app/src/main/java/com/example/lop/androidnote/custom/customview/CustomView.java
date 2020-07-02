@@ -16,6 +16,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.lop.androidnote.R;
 
@@ -113,11 +114,17 @@ public class CustomView extends View {
 
     }
 
+    @Override
+    public void layout(int l, int t, int r, int b) {
+        super.layout(l, t, r, b);
+    }
+
     /**
      * 在measure结束以后就执行layout，源码中可以看到这是一个空方法
      * 因为onlayout是为了确定view在布局中的位置所以应该由布局去决定，即父视图决定子视图得位置
      * 所以在自定义view中主要是onMeasure和onDraw
      */
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
