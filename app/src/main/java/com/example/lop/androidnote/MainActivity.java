@@ -4,6 +4,7 @@ import android.content.ContextWrapper;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.SpannableString;
@@ -31,6 +32,9 @@ import com.example.lop.androidnote.intentservice.HandlerThreadActivity;
 import com.example.lop.androidnote.intentservice.MyIntentService;
 import com.example.lop.androidnote.lazyload.ActivityLazyLoad;
 import com.example.lop.androidnote.net.MainNetActivity;
+import com.example.lop.androidnote.utils.VersionUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -58,11 +62,8 @@ public class MainActivity extends BaseActivity {
     private BaseRVAdapter mAdapter;
     private List<String> list;
     private String uri = "http://hbimg.b0.upaiyun.com/357d23d074c2954d568d1a6f86a5be09d190a45116e95-0jh9Pg_fw658";
-    private TextView textView;
-    private String content1="测试测试测试测试";
-    private String content2="@halalop";
-    private String content3="123456789";
-    private EditText editText;
+    private String uri2="http://5b0988e595225.cdn.sohucs.com/images/20180609/5b674fd57b0448b39eba198db37a7875.gif";
+    private GifImageView gifImageView;
     @Override
     public int getLayoutID() {
         return R.layout.activity_main;
@@ -103,14 +104,6 @@ public class MainActivity extends BaseActivity {
                 case 5:
                     launchActivity(ActivityLazyLoad.class);
                     break;
-
-
-
-
-
-
-
-
             }
         });
 
@@ -122,19 +115,36 @@ public class MainActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
 
-        editText=findViewById(R.id.edit_text);
 
-        String content=content1+content2+content3;
-        textView=findViewById(R.id.text);
-        SpannableStringBuilder spannable=new SpannableStringBuilder(content);
-        spannable.setSpan(new MyClickSpan(),content1.length(),content1.length()+content2.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        gifImageView=findViewById(R.id.gifImageView);
+        OkHttpClient client=new OkHttpClient();
+        Request request=new Request.Builder()
+                .url(uri2)
+                .get()
+                .build();
+        Call call=client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-        spannable.setSpan(new MyClickSpan(),0,content1.length()-4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
 
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                byte[]bytes=response.body().bytes();
+                runOnUiThread(() -> {
+                    GifDrawable gifDrawable= null;
+                    try {
+                        gifDrawable = new GifDrawable(bytes);
+                        gifDrawable.setLoopCount(Character.MAX_VALUE);
+                        gifImageView.setImageDrawable(gifDrawable);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-        textView.setMovementMethod(MyLinkedMovementMethod.getInstance());
-        textView.setHighlightColor(getResources().getColor(android.R.color.transparent));
-        textView.setText(spannable);
+                });
+            }
+        });
     }
 
 }
