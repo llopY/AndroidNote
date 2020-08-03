@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -47,4 +51,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+
+    api 'com.tencent.imsdk:imsdk:4.8.50'
+
 }
